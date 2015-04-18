@@ -134,13 +134,13 @@ void maneuver(int distance_setting_turning, int calc_sonar_turning, int distance
 		} else if (sonar_front > 24) 
 		{
 		  a = 1; //move forward
-        Serial.print("Move Forward Now: a = 1");
+        Serial.print("Move Forward Now: a = ");
         Serial.println(a);
 		} else if (sonar_front < 8)
 		{
         
 		  a = -1;//move backward
-        Serial.print("Move Backward Now: a = -1");
+        Serial.print("Move Backward Now: a = ");
         Serial.println(a);
 		}
   
@@ -301,6 +301,7 @@ void loop()
 	
         Serial.print("sonar_front = distance5 = ");
         Serial.println(sonar_front);
+        delay(2000);
 
 	int calc_sonar_turning = (distance_setting_turning - sonar_turning) * kpr;
 
@@ -310,13 +311,13 @@ void loop()
         
         if (X.PI_instruction_D03 == 0 && X.PI_instruction_D06 == 1)
                 {
-                  a = 1; //override and move forward
+                  //a = 1; //override and move forward
                 } else {
                 //do nothing
                 };         
         if (X.PI_instruction_D03 == 1 && X.PI_instruction_D06 == 0)
                 {
-                  a = -1; //override and move backward
+                  //a = -1; //override and move backward
                 } else {
                 //do nothing
                 }; 
