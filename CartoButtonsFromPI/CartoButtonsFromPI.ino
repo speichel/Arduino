@@ -123,9 +123,8 @@ long Ultrasonic::microsecondsToCentimeters(void)
 	  return duration/29/2;	
 	}
 
-/*minimum movement in forward direction:    ST.drive(20);    delay(20);    ST.drive(0);    delay(800);*/
-void maneuver(int distance_setting_turning, int calc_sonar_turning, int distance_setting_front, int sonar_front, int msTime, int a)
-	{
+int forw_OR_back(int a)
+        {
         if (sonar_front <= 24 && sonar_front >= 8)  
 		{
 		  a = a;
@@ -136,6 +135,13 @@ void maneuver(int distance_setting_turning, int calc_sonar_turning, int distance
 		{
 		  a = -1;//move backward
 		}
+        return a;
+        }
+
+/*minimum movement in forward direction:    ST.drive(20);    delay(20);    ST.drive(0);    delay(800);*/
+void maneuver(int distance_setting_turning, int calc_sonar_turning, int distance_setting_front, int sonar_front, int msTime, int a)
+	{
+
   
         ST.drive(40*a/3);
         delay(600);
@@ -300,6 +306,7 @@ void loop()
                 }; 
         
         delay(500);
+        a = forw_OR_backward(a);
 
 	maneuver(distance_setting_turning, calc_sonar_turning, distance_setting_front, sonar_front, 20, a);       // Drive levels set speeds
 
