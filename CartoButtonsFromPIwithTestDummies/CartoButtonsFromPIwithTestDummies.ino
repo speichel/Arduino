@@ -123,27 +123,30 @@ long Ultrasonic::microsecondsToCentimeters(void)
 	  return duration/29/2;	
 	}
 
+int forw_OR_back(int a)
+        {
+        if (sonar_front <= 24 && sonar_front >= 8)  
+          {
+          a = a;
+          Serial.print("Stay the course: a = ");
+          Serial.println(a);
+          } else if (sonar_front > 24) 
+          {
+          a = 1; //move forward
+          Serial.print("Move Forward Now: a = ");
+          Serial.println(a);
+          } else if (sonar_front < 8)
+          {
+          a = -1;//move backward
+          Serial.print("Move Backward Now: a = ");
+          Serial.println(a);
+          }
+          return a;
+        }
+
+
 /*minimum movement in forward direction:    ST.drive(20);    delay(20);    ST.drive(0);    delay(800);*/
 void maneuver(int distance_setting_turning, int calc_sonar_turning, int distance_setting_front, int sonar_front, int msTime, int a)
-	{
-	if (sonar_front <= 24 && sonar_front >= 8)  
-		{
-		  a = a;
-        Serial.print("Stay the course: a = ");
-        Serial.println(a);
-		} else if (sonar_front > 24) 
-		{
-		  a = 1; //move forward
-        Serial.print("Move Forward Now: a = ");
-        Serial.println(a);
-		} else if (sonar_front < 8)
-		{
-        
-		  a = -1;//move backward
-        Serial.print("Move Backward Now: a = ");
-        Serial.println(a);
-		}
-  
   
         //ST.drive(40*a);
         Serial.print("ST.drive(40*a)= ");
@@ -323,6 +326,7 @@ void loop()
                 }; 
         
         delay(500);
+        a = forw_OR_back(a);
 
 	maneuver(distance_setting_turning, calc_sonar_turning, distance_setting_front, sonar_front, 20, a);       // Drive levels set speeds
 
